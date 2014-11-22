@@ -327,7 +327,7 @@ void keyPressed()
       if (mousePressed == true) 
       {
         if (jumpower < 55)
-          jumpower+= 3;
+          jumpower+= 4;
       } else 
         if (!mousePressed && jumpower > 5)
       {

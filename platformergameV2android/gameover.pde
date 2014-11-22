@@ -27,6 +27,12 @@ void gameoverscreen()
         transl8= 0;
         chan = new Sprite(width*0.3, 200);
         score = 0;
+        
+        for (int h = 0; h <coinCollection.length; h++)
+    coinCollection[h] = new coin (random(width, width*10), random(height-BG2.height, ground));
+
+  for (int m = 0; m <enemyCollection.length; m++)
+    enemyCollection[m] = new eni (random(width, width*10), random(height-BG2.height, ground));
       }
   }
 }
