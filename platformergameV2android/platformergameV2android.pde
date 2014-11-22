@@ -110,7 +110,7 @@ void setup()
   spriteheight = (width+height)/20;
 
   //creates the sprite
-  chan = new Sprite(width*0.3, height-200);
+  chan = new Sprite(width*0.3, height*0.5);
 
   ground = (height*8)/10;
 

@@ -326,13 +326,13 @@ void keyPressed()
       state = 2;
       if (mousePressed == true) 
       {
-        if (jumpower < 60)
-          jumpower+= 5;
+        if (jumpower < 55)
+          jumpower+= 3;
       } else 
         if (!mousePressed && jumpower > 5)
       {
         state = 4;
-        jumpower = 0;
+        jumpower -= 2;
       }
     }
   }
