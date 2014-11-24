@@ -1,15 +1,27 @@
-//The MIT License (MIT)
+/*
+The MIT License (MIT)
+ 
+ Copyright (c) 2013 Mick Grierson, Matthew Yee-King, Marco Gillies
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of 
+ this software and associated documentation files (the "Software"), to 
+ deal in the Software without restriction, including without limitation 
+ the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ and/or sell copies of the Software, and to permit persons to whom the 
+ Software is furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included 
+ in  all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
-//Copyright (c) 2013 Mick Grierson, Matthew Yee-King, Marco Gillies
+// putting this up in global scope for consistency with maxim.js
+// eventually, this should be inside Maxim in all versions of the library...
+float[] mtof = {
+    0f, 8.661957f, 9.177024f, 9.722718f, 10.3f, 10.913383f, 11.562325f, 12.25f, 12.978271f, 13.75f, 14.567617f, 15.433853f, 16.351599f, 17.323914f, 18.354048f, 19.445436f, 20.601723f, 21.826765f, 23.124651f, 24.5f, 25.956543f, 27.5f, 29.135235f, 30.867706f, 32.703197f, 34.647827f, 36.708096f, 38.890873f, 41.203445f, 43.65353f, 46.249302f, 49.f, 51.913086f, 55.f, 58.27047f, 61.735413f, 65.406395f, 69.295654f, 73.416191f, 77.781746f, 82.406891f, 87.30706f, 92.498604f, 97.998856f, 103.826172f, 110.f, 116.540939f, 123.470825f, 130.81279f, 138.591309f, 146.832382f, 155.563492f, 164.813782f, 174.61412f, 184.997208f, 195.997711f, 207.652344f, 220.f, 233.081879f, 246.94165f, 261.62558f, 277.182617f, 293.664764f, 311.126984f, 329.627563f, 349.228241f, 369.994415f, 391.995422f, 415.304688f, 440.f, 466.163757f, 493.883301f, 523.25116f, 554.365234f, 587.329529f, 622.253967f, 659.255127f, 698.456482f, 739.988831f, 783.990845f, 830.609375f, 880.f, 932.327515f, 987.766602f, 1046.502319f, 1108.730469f, 1174.659058f, 1244.507935f, 1318.510254f, 1396.912964f, 1479.977661f, 1567.981689f, 1661.21875f, 1760.f, 1864.655029f, 1975.533203f, 2093.004639f, 2217.460938f, 2349.318115f, 2489.015869f, 2637.020508f, 2793.825928f, 2959.955322f, 3135.963379f, 3322.4375f, 3520.f, 3729.31f, 3951.066406f, 4186.009277f, 4434.921875f, 4698.63623f, 4978.031738f, 5274.041016f, 5587.651855f, 5919.910645f, 6271.926758f, 6644.875f, 7040.f, 7458.620117f, 7902.132812f, 8372.018555f, 8869.84375f, 9397.272461f, 9956.063477f, 10548.082031f, 11175.303711f, 11839.821289f, 12543.853516f, 13289.75f
+  };
 
-//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,41 +29,27 @@ import java.io.IOException;
 import java.io.BufferedInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
-
 //import android.content.res.Resources;
-// import android.app.Activity; 
-// import android.os.Bundle; 
-// import android.media.*;
-// import android.media.audiofx.Visualizer;
-// import android.content.res.AssetFileDescriptor;
-// import android.hardware.*;
+import android.app.Activity; 
+import android.os.Bundle; 
+import android.media.*;
+import android.media.audiofx.Visualizer;
+import android.content.res.AssetFileDescriptor;
+import android.hardware.*;
 
 
 public class Maxim {
 
-  private float sampleRate;
+  private float sampleRate = 44100;
 
   public final float[] mtof = {
-    0f, 8.661957f, 9.177024f, 9.722718f, 10.3f, 10.913383f, 11.562325f, 12.25f, 12.978271f, 13.75f, 14.567617f, 15.433853f, 16.351599f, 17.323914f, 18.354048f, 19.445436f, 20.601723f, 21.826765f, 23.124651f, 24.5f, 25.956543f, 27.5f, 29.135235f, 30.867706f, 32.703197f, 34.647827f, 36.708096f, 38.890873f, 41.203445f, 43.65353f, 46.249302f, 49.f, 51.913086f, 55.f, 58.27047f, 61.735413f, 65.406395f, 69.295654f, 73.416191f, 77.781746f, 82.406891f, 87.30706f, 92.498604f, 97.998856f, 103.826172f, 110.f, 116.540939f, 123.470825f, 130.81279f, 138.591309f, 146.832382f, 155.563492f, 164.813782f, 174.61412f, 184.997208f, 195.997711f, 207.652344f, 220.f, 233.081879f, 246.94165f, 261.62558f, 277.182617f, 293.664764f, 311.126984f, 329.627563f, 349.228241f, 369.994415f, 391.995422f, 415.304688f, 440.f, 466.163757f, 493.883301f, 523.25116f, 554.365234f, 587.329529f, 622.253967f, 659.255127f, 698.456482f, 739.988831f, 783.990845f, 830.609375f, 880.f, 932.327515f, 987.766602f, 1046.502319f, 1108.730469f, 1174.659058f, 1244.507935f, 1318.510254f, 1396.912964f, 1479.977661f, 1567.981689f, 1661.21875f, 1760.f, 1864.655029f, 1975.533203f, 2093.004639f, 2217.460938f, 2349.318115f, 2489.015869f, 2637.020508f, 2793.825928f, 2959.955322f, 3135.963379f, 3322.4375f, 3520.f, 3729.31f, 3951.066406f, 4186.009277f, 4434.921875f, 4698.63623f, 4978.031738f, 5274.041016f, 5587.651855f, 5919.910645f, 6271.926758f, 6644.875f, 7040.f, 7458.620117f, 7902.132812f, 8372.018555f, 8869.84375f, 9397.272461f, 9956.063477f, 10548.082031f, 11175.303711f, 11839.821289f, 12543.853516f, 13289.75f
+    0, 8.661957, 9.177024, 9.722718, 10.3, 10.913383, 11.562325, 12.25, 12.978271, 13.75, 14.567617, 15.433853, 16.351599, 17.323914, 18.354048, 19.445436, 20.601723, 21.826765, 23.124651, 24.5, 25.956543, 27.5, 29.135235, 30.867706, 32.703197, 34.647827, 36.708096, 38.890873, 41.203445, 43.65353, 46.249302, 49., 51.913086, 55., 58.27047, 61.735413, 65.406395, 69.295654, 73.416191, 77.781746, 82.406891, 87.30706, 92.498604, 97.998856, 103.826172, 110., 116.540939, 123.470825, 130.81279, 138.591309, 146.832382, 155.563492, 164.813782, 174.61412, 184.997208, 195.997711, 207.652344, 220., 233.081879, 246.94165, 261.62558, 277.182617, 293.664764, 311.126984, 329.627563, 349.228241, 369.994415, 391.995422, 415.304688, 440., 466.163757, 493.883301, 523.25116, 554.365234, 587.329529, 622.253967, 659.255127, 698.456482, 739.988831, 783.990845, 830.609375, 880., 932.327515, 987.766602, 1046.502319, 1108.730469, 1174.659058, 1244.507935, 1318.510254, 1396.912964, 1479.977661, 1567.981689, 1661.21875, 1760., 1864.655029, 1975.533203, 2093.004639, 2217.460938, 2349.318115, 2489.015869, 2637.020508, 2793.825928, 2959.955322, 3135.963379, 3322.4375, 3520., 3729.31, 3951.066406, 4186.009277, 4434.921875, 4698.63623, 4978.031738, 5274.041016, 5587.651855, 5919.910645, 6271.926758, 6644.875, 7040., 7458.620117, 7902.132812, 8372.018555, 8869.84375, 9397.272461, 9956.063477, 10548.082031, 11175.303711, 11839.821289, 12543.853516, 13289.75
   };
 
-  private AudioThread audioThread;
-  private PApplet processing;
+  private AndroidAudioThread audioThread;
 
-  public Maxim (PApplet processing) {
-    this.processing = processing;
-    sampleRate = 44100f;
-    audioThread = new AudioThread(sampleRate, 4096, false);
+  public Maxim (PApplet app) {
+    audioThread = new AndroidAudioThread(sampleRate, 256, false);
     audioThread.start();
   }
 
@@ -68,7 +66,7 @@ public class Maxim {
    */
   public AudioPlayer loadFile(String filename) {
     // this will load the complete audio file into memory
-    AudioPlayer ap = new AudioPlayer(filename, sampleRate, processing);
+    AudioPlayer ap = new AudioPlayer(filename, sampleRate);
     audioThread.addAudioGenerator(ap);
     // now we need to tell the audiothread
     // to ask the audioplayer for samples
@@ -88,18 +86,17 @@ public class Maxim {
     // to ask the audioplayer for samples
     return ap;
   }
-  // /**
-  //  * Create an AudioStreamPlayer which can stream audio from the
-  //  * internet as well as local files.  Does not provide precise
-  //  * control over looping and playhead like AudioPlayer does.  Use this for
-  //  * longer audio files and audio from the internet.
-  //  */
-  // public AudioStreamPlayer createAudioStreamPlayer(String url) {
-  //     AudioStreamPlayer asp = new AudioStreamPlayer(url);
-  //     return asp;
-  // }
+  /**
+   * Create an AudioStreamPlayer which can stream audio from the
+   * internet as well as local files.  Does not provide precise
+   * control over looping and playhead like AudioPlayer does.  Use this for
+   * longer audio files and audio from the internet.
+   */
+  public AudioStreamPlayer createAudioStreamPlayer(String url) {
+    AudioStreamPlayer asp = new AudioStreamPlayer(url);
+    return asp;
+  }
 }
-
 
 
 
@@ -130,23 +127,23 @@ public class AudioPlayer implements Synth, AudioGenerator {
 
   public AudioPlayer(float sampleRate) {
     fxChain = new FXChain(sampleRate);
+    this.dReadHead = 1;
     this.sampleRate = sampleRate;
+    this.masterVolume = 1;
   }
 
-  public AudioPlayer (String filename, float sampleRate, PApplet processing) {
+  public AudioPlayer (String filename, float sampleRate) {
     //super(filename);
     this(sampleRate);
     try {
       // how long is the file in bytes?
-      //long byteCount = getAssets().openFd(filename).getLength();
-      File f = new File(processing.dataPath(filename));
-      long byteCount = f.length();
+      long byteCount = getAssets().openFd(filename).getLength();
       //System.out.println("bytes in "+filename+" "+byteCount);
 
       // check the format of the audio file first!
       // only accept mono 16 bit wavs
-      //InputStream is = getAssets().open(filename); 
-      BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
+      InputStream is = getAssets().open(filename); 
+      BufferedInputStream bis = new BufferedInputStream(is);
 
       // chop!!
 
@@ -235,12 +232,13 @@ public class AudioPlayer implements Synth, AudioGenerator {
     if (analysing) {
       // calc the average
       float sum = 0;
-      for (int i=0; i<powerSpectrum.length; i++) {
+      for (int i=0;i<powerSpectrum.length;i++) {
         sum += powerSpectrum[i];
       }
       sum /= powerSpectrum.length;
       return sum;
-    } else {
+    }
+    else {
       System.out.println("call setAnalysing to enable power analysis");
       return 0;
     }
@@ -248,7 +246,8 @@ public class AudioPlayer implements Synth, AudioGenerator {
   public float[] getPowerSpectrum() {
     if (analysing) {
       return powerSpectrum;
-    } else {
+    }
+    else {
       System.out.println("call setAnalysing to enable power analysis");
       return null;
     }
@@ -350,14 +349,16 @@ public class AudioPlayer implements Synth, AudioGenerator {
   public short getSample() {
     if (!isPlaying) {
       return 0;
-    } else {
+    }
+    else {
       short sample;
       readHead += dReadHead;
       if (readHead > (audioData.length - 1)) {// got to the end
         //% (float)audioData.length;
         if (isLooping) {// back to the start for loop mode
           readHead = readHead % (float)audioData.length;
-        } else {
+        }
+        else {
           readHead = 0;
           isPlaying = false;
         }
@@ -385,13 +386,15 @@ public class AudioPlayer implements Synth, AudioGenerator {
           fftInd = 0;
         }
       }
-
-      //return sample;
-      return (short)y3;
+      // println(audioData[(int)x1]);
+      return sample;
+      //return (short)y3;
+      //return audioData[(int)x1];
     }
   }
 
   public void setAudioData(short[] audioData) {
+    //println(audioData[100]);
     this.audioData = audioData;
   }
 
@@ -450,9 +453,13 @@ public class WavetableSynth extends AudioPlayer {
     }
 
     this.sampleRate = sampleRate;
-    setAudioData(sine);
+    setAudioData(saw);
     setLooping(true);
   }
+  //    public short getSample() {
+  //      return (short) random(0, 65536);
+  //    }
+
 
   public void setFrequency(float freq) {
     if (freq > 0) {
@@ -461,12 +468,21 @@ public class WavetableSynth extends AudioPlayer {
     }
   }
 
+  /** for consistency with maxim.js */
+  public void waveTableSize(int size){
+  }
+  
+  /** alias to loadWaveForm for consistency with maxim.js*/
+  public void loadWaveTable(float[] wavetable_){
+    loadWaveForm(wavetable_);
+  }
+
   public void loadWaveForm(float[] wavetable_) {
     if (wavetable == null || wavetable_.length != wavetable.length) {
       // only reallocate if there is a change in length
       wavetable = new short[wavetable_.length];
     }
-    for (int i=0; i<wavetable.length; i++) {
+    for (int i=0;i<wavetable.length;i++) {
       wavetable[i] = (short) (wavetable_[i] * 32768);
     }
     setAudioData(wavetable);
@@ -484,61 +500,64 @@ public interface Synth {
   public float[] getPowerSpectrum();
 }
 
-public class AudioThread extends Thread
+public class AndroidAudioThread extends Thread
 {
   private int minSize;
-  //private AudioTrack track;
+  private AudioTrack track;
   private short[] bufferS;
-  private byte[] bOutput;
+  private float[] bufferF;
   private ArrayList audioGens;
   private boolean running;
 
   private FFT fft;
   private float[] fftFrame;
-  private SourceDataLine sourceDataLine;
-  private int blockSize;
 
-  public AudioThread(float samplingRate, int blockSize) {
-    this(samplingRate, blockSize, false);
+
+  public AndroidAudioThread(float samplingRate, int bufferLength) {
+    this(samplingRate, bufferLength, false);
   }
 
-  public AudioThread(float samplingRate, int blockSize, boolean enableFFT)
+  public AndroidAudioThread(float samplingRate, int bufferLength, boolean enableFFT)
   {
-    this.blockSize = blockSize;
     audioGens = new ArrayList();
-    // we'll do our dsp in shorts
-    bufferS = new short[blockSize];
-    // but we'll convert to bytes when sending to the sound card
-    bOutput = new byte[blockSize * 2];
-    AudioFormat audioFormat = new AudioFormat(samplingRate, 16, 1, true, false);
-    DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
+    minSize =AudioTrack.getMinBufferSize( (int)samplingRate, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT );        
+    //println();
+    // note that we set the buffer just to something small
+    // not to the minSize
+    // setting to minSize seems to cause glitches on the delivery of audio 
+    // to the sound card (i.e. ireegular delivery rate)
+    bufferS = new short[bufferLength];
+    bufferF = new float[bufferLength];
 
-    sourceDataLine = null;
-    // here we try to initialise the audio system. try catch is exception handling, i.e. 
-    // dealing with things not working as expected
-    try {
-      sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-      sourceDataLine.open(audioFormat, bOutput.length);
-      sourceDataLine.start();
-      running = true;
-    } 
-    catch (LineUnavailableException lue) {
-      // it went wrong!
-      lue.printStackTrace(System.err);
-      System.out.println("Could not initialise audio. check above stack trace for more info");
-      //System.exit(1);
-    }
-
+    track = new AudioTrack( AudioManager.STREAM_MUSIC, (int)samplingRate, 
+    AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, 
+    minSize, AudioTrack.MODE_STREAM);
+    track.play();
 
     if (enableFFT) {
       try {
         fft = new FFT();
       }
       catch(Exception e) {
-        System.out.println("Error setting up the audio analyzer");
+        println("Error setting up the audio analyzer");
         e.printStackTrace();
       }
     }
+  }
+
+  /**
+   * Returns a recent snapshot of the power spectrum as 8 bit values
+   */
+  public float[] getPowerSpectrum() {
+    // process the last buffer that was calculated
+    if (fftFrame == null) {
+      fftFrame = new float[bufferS.length];
+    }
+    for (int i=0;i<fftFrame.length;i++) {
+      fftFrame[i] = ((float) bufferS[i] / 32768f);
+    }
+    return fft.process(fftFrame, true);
+    //return powerSpectrum;
   }
 
   // overidden from Thread
@@ -546,12 +565,12 @@ public class AudioThread extends Thread
     running = true;
     while (running) {
       //System.out.println("AudioThread : ags  "+audioGens.size());
-      for (int i=0; i<bufferS.length; i++) {
+      for (int i=0;i<bufferS.length;i++) {
         // we add up using a 32bit int
         // to prevent clipping
         int val = 0;
         if (audioGens.size() > 0) {
-          for (int j=0; j<audioGens.size (); j++) {
+          for (int j=0;j<audioGens.size(); j++) {
             AudioGenerator ag = (AudioGenerator)audioGens.get(j);
             val += ag.getSample();
           }
@@ -560,43 +579,12 @@ public class AudioThread extends Thread
         bufferS[i] = (short) val;
       }
       // send it to the audio device!
-      sourceDataLine.write(shortsToBytes(bufferS, bOutput), 0, bOutput.length);
+      track.write( bufferS, 0, bufferS.length );
     }
   }
 
   public void addAudioGenerator(AudioGenerator ag) {
     audioGens.add(ag);
-  }
-
-  /**
-   * converts an array of 16 bit samples to bytes
-   * in little-endian (low-byte, high-byte) format.
-   */
-  private byte[] shortsToBytes(short[] sData, byte[] bData) {
-    int index = 0;
-    short sval;
-    for (int i = 0; i < sData.length; i++) {
-      //short sval = (short) (fData[j][i] * ShortMaxValueAsFloat);
-      sval = sData[i];
-      bData[index++] = (byte) (sval & 0x00FF);
-      bData[index++] = (byte) ((sval & 0xFF00) >> 8);
-    }
-    return bData;
-  }
-
-  /**
-   * Returns a recent snapshot of the power spectrum 
-   */
-  public float[] getPowerSpectrum() {
-    // process the last buffer that was calculated
-    if (fftFrame == null) {
-      fftFrame = new float[bufferS.length];
-    }
-    for (int i=0; i<fftFrame.length; i++) {
-      fftFrame[i] = ((float) bufferS[i] / 32768f);
-    }
-    return fft.process(fftFrame, true);
-    //return powerSpectrum;
   }
 }
 
@@ -627,7 +615,7 @@ public class FXChain {
     // filter = new MickFilter(sampleRate);
     filter = new RLPF(sampleRate);
 
-    //filter.setFilter(0.1, 0.1);
+    filter.setFilter(sampleRate, 0.5);
   }
 
   public void ramp(float val, float timeMs) {
@@ -637,7 +625,8 @@ public class FXChain {
     dAmp = (targetAmp - currentAmp) / (timeMs / 1000 * sampleRate);
     if (targetAmp > currentAmp) {
       goingUp = true;
-    } else {
+    }
+    else {
       goingUp = false;
     }
   }
@@ -660,7 +649,8 @@ public class FXChain {
     in =  filter.applyFilter(in);
     if (goingUp && currentAmp < targetAmp) {
       currentAmp += dAmp;
-    } else if (!goingUp && currentAmp > targetAmp) {
+    }
+    else if (!goingUp && currentAmp > targetAmp) {
       currentAmp += dAmp;
     }  
 
@@ -680,110 +670,110 @@ public class FXChain {
 }
 
 
-// /**
-//  * Represents an audio source is streamed as opposed to being completely loaded (as WavSource is)
-//  */
-// public class AudioStreamPlayer {
-// 	/** a class from the android API*/
-// 	private MediaPlayer mediaPlayer;
-// 	/** a class from the android API*/
-// 	private Visualizer viz; 
-// 	private byte[] waveformBuffer;
-// 	private byte[] fftBuffer;
-// 	private byte[] powerSpectrum;
+/**
+ * Represents an audio source is streamed as opposed to being completely loaded (as WavSource is)
+ */
+public class AudioStreamPlayer {
+  /** a class from the android API*/
+  private MediaPlayer mediaPlayer;
+  /** a class from the android API*/
+  private Visualizer viz; 
+  private byte[] waveformBuffer;
+  private byte[] fftBuffer;
+  private byte[] powerSpectrum;
 
-// 	/**
-// 	 * create a stream source from the sent url 
-// 	 */
-// 	public AudioStreamPlayer(String url) {
-// 	    try {
-// 		mediaPlayer = new MediaPlayer();
-// 		//mp.setAuxEffectSendLevel(1);
-// 		mediaPlayer.setLooping(true);
+  /**
+   * create a stream source from the sent url 
+   */
+  public AudioStreamPlayer(String url) {
+    try {
+      mediaPlayer = new MediaPlayer();
+      //mp.setAuxEffectSendLevel(1);
+      mediaPlayer.setLooping(true);
 
-// 		// try to parse the URL... if that fails, we assume it
-// 		// is a local file in the assets folder
-// 		try {
-// 		    URL uRL = new URL(url);
-// 		    mediaPlayer.setDataSource(url);
-// 		}
-// 		catch (MalformedURLException eek) {
-// 		    // couldn't parse the url, assume its a local file
-// 		    AssetFileDescriptor afd = getAssets().openFd(url);
-// 		    //mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-// 		    mediaPlayer.setDataSource(afd.getFileDescriptor());
-// 		    afd.close();
-// 		}
+      // try to parse the URL... if that fails, we assume it
+      // is a local file in the assets folder
+      try {
+        URL uRL = new URL(url);
+        mediaPlayer.setDataSource(url);
+      }
+      catch (MalformedURLException eek) {
+        // couldn't parse the url, assume its a local file
+        AssetFileDescriptor afd = getAssets().openFd(url);
+        //mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+        mediaPlayer.setDataSource(afd.getFileDescriptor());
+        afd.close();
+      }
 
-// 		mediaPlayer.prepare();
-// 		//mediaPlayer.start();
-// 		//System.out.println("Created audio with id "+mediaPlayer.getAudioSessionId());
-// 		viz = new Visualizer(mediaPlayer.getAudioSessionId());
-// 		viz.setEnabled(true);
-// 		waveformBuffer = new byte[viz.getCaptureSize()];
-// 		fftBuffer = new byte[viz.getCaptureSize()/2];
-// 		powerSpectrum = new byte[viz.getCaptureSize()/2];
-// 	    }
-// 	    catch (Exception e) {
-// 		System.out.println("StreamSource could not be initialised. Check url... "+url+ " and that you have added the permission INTERNET, RECORD_AUDIO and MODIFY_AUDIO_SETTINGS to the manifest,");
-// 		e.printStackTrace();
-// 	    }
-// 	}
+      mediaPlayer.prepare();
+      //mediaPlayer.start();
+      //println("Created audio with id "+mediaPlayer.getAudioSessionId());
+      viz = new Visualizer(mediaPlayer.getAudioSessionId());
+      viz.setEnabled(true);
+      waveformBuffer = new byte[viz.getCaptureSize()];
+      fftBuffer = new byte[viz.getCaptureSize()/2];
+      powerSpectrum = new byte[viz.getCaptureSize()/2];
+    }
+    catch (Exception e) {
+      println("StreamSource could not be initialised. Check url... "+url+ " and that you have added the permission INTERNET, RECORD_AUDIO and MODIFY_AUDIO_SETTINGS to the manifest,");
+      e.printStackTrace();
+    }
+  }
 
-// 	public void play() {
-// 	    mediaPlayer.start();
-// 	}
+  public void play() {
+    mediaPlayer.start();
+  }
 
-// 	public int getLengthMs() {
-// 	    return mediaPlayer.getDuration();
-// 	}
+  public int getLengthMs() {
+    return mediaPlayer.getDuration();
+  }
 
-// 	public void cue(float timeMs) {
-// 	    if (timeMs >= 0 && timeMs < getLengthMs()) {// ignore crazy values
-// 		mediaPlayer.seekTo((int)timeMs);
-// 	    }
-// 	}
+  public void cue(float timeMs) {
+    if (timeMs >= 0 && timeMs < getLengthMs()) {// ignore crazy values
+      mediaPlayer.seekTo((int)timeMs);
+    }
+  }
 
-// 	/**
-// 	 * Returns a recent snapshot of the power spectrum as 8 bit values
-// 	 */
-// 	public byte[] getPowerSpectrum() {
-// 	    // calculate the spectrum
-// 	    viz.getFft(fftBuffer);
-// 	    short real, imag;
-// 	    for (int i=2;i<fftBuffer.length;i+=2) {
-// 		real = (short) fftBuffer[i];
-// 		imag = (short) fftBuffer[i+1];
-// 		powerSpectrum[i/2] = (byte) ((real * real)  + (imag * imag));
-// 	    }
-// 	    return powerSpectrum;
-// 	}
+  /**
+   * Returns a recent snapshot of the power spectrum as 8 bit values
+   */
+  public byte[] getPowerSpectrum() {
+    // calculate the spectrum
+    viz.getFft(fftBuffer);
+    short real, imag;
+    for (int i=2;i<fftBuffer.length;i+=2) {
+      real = (short) fftBuffer[i];
+      imag = (short) fftBuffer[i+1];
+      powerSpectrum[i/2] = (byte) ((real * real)  + (imag * imag));
+    }
+    return powerSpectrum;
+  }
 
-// 	/**
-// 	 * Returns a recent snapshot of the waveform being played 
-// 	 */
-// 	public byte[] getWaveForm() {
-// 	    // retrieve the waveform
-// 	    viz.getWaveForm(waveformBuffer);
-// 	    return waveformBuffer;
-// 	}
-// } 
+  /**
+   * Returns a recent snapshot of the waveform being played 
+   */
+  public byte[] getWaveForm() {
+    // retrieve the waveform
+    viz.getWaveForm(waveformBuffer);
+    return waveformBuffer;
+  }
+} 
 
 /**
  * Use this class to retrieve data about the movement of the device
  */
-public class Accelerometer {
-  //private SensorManager sensorManager;
-  //private Sensor accelerometer;
+public class Accelerometer implements SensorEventListener {
+  private SensorManager sensorManager;
+  private Sensor accelerometer;
   private float[] values;
 
   public Accelerometer() {
-    //sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-    //accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+    accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     values = new float[3];
-    System.out.println("Java accelerometer will generate values of zero!");
   }
+
 
   public float[] getValues() {
     return values;
@@ -799,6 +789,23 @@ public class Accelerometer {
 
   public float getZ() {
     return values[2];
+  }
+
+  /**
+   * SensorEventListener interace
+   */
+  public void onSensorChanged(SensorEvent event) {
+    values = event.values;
+    //float[] vals = event.values;
+    //for (int i=0; i<vals.length;i++){
+    //  println(" sensor! "+vals[i]);
+    //}
+  }
+
+  /**
+   * SensorEventListener interace
+   */
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
   }
 }
 
@@ -819,7 +826,7 @@ public class RLPF implements Filter {
   public RLPF(float sampleRate_) {
     this.sampleRate = sampleRate_;
     reset();
-    this.setFilter(sampleRate / 4, 0.01f);
+    this.setFilter(sampleRate / 4, 0.01);
   }
   private void reset() {
     a0 = 0.f;
@@ -837,10 +844,10 @@ public class RLPF implements Filter {
     // invert so high r -> high resonance!
     r = 1-r;
     // remap to appropriate ranges
-    f = map(f, 0f, sampleRate/4, 30f, sampleRate / 4);
-    r = map(r, 0f, 1f, 0.005f, 2f);
+    f = map(f, 0, sampleRate/4, 30, sampleRate / 4);
+    r = map(r, 0, 1, 0.005, 2);
 
-    System.out.println("rlpf: f "+f+" r "+r);
+   // println("rlpf: f "+f+" r "+r);
 
     this.freq = f * TWO_PI / sampleRate;
     this.reson = r;
@@ -880,7 +887,7 @@ class MickFilter implements Filter {
     this.sampleRate = sampleRate;
   }
 
-  public void setFilter(float f, float r) {
+  void setFilter(float f, float r) {
     f = constrain(f, 0, 1);
     res = constrain(r, 0, 1);
     f = map(f, 0, 1, 25, sampleRate / 4);
@@ -888,13 +895,13 @@ class MickFilter implements Filter {
     this.f = f;
     this.res = r;    
 
-    //System.out.println("mickF: f "+f+" r "+r);
+    //println("mickF: f "+f+" r "+r);
   }
-  public float applyFilter(float in) {
+  float applyFilter(float in) {
     return lores(in, f, res);
   }
 
-  public float lores(float input, float cutoff1, float resonance) {
+  float lores(float input, float cutoff1, float resonance) {
     //cutoff=cutoff1*0.5;
     //if (cutoff<10) cutoff=10;
     //if (cutoff>(sampleRate*0.5)) cutoff=(sampleRate*0.5);
@@ -903,7 +910,7 @@ class MickFilter implements Filter {
     //if (resonance>2.4) resonance = 2.4;
     z=cos(TWO_PI*cutoff/sampleRate);
     c=2-2*z;
-    float r=(sqrt(2.0f)*sqrt(-pow((z-1.0f), 3.0f))+resonance*(z-1))/(resonance*(z-1));
+    float r=(sqrt(2.0)*sqrt(-pow((z-1.0), 3.0))+resonance*(z-1))/(resonance*(z-1));
     x=x+(input-y)*c;
     y=y+x;
     x=x*r;
@@ -967,7 +974,7 @@ public class FFT {
   public float[] specToPowers(float[] real, float[] imag, float[] powers) {
     float re, im;
     double pow;
-    for (int i=0; i<powers.length; i++) {
+    for (int i=0;i<powers.length;i++) {
       //real = spectrum[i][j].re();
       //imag = spectrum[i][j].im();
       re = real[i];
@@ -977,7 +984,7 @@ public class FFT {
       // convert to dB
       pow = (double) powers[i];
       powers[i] = (float)(10 *  Math.log10(pow * pow)); // (-100 - 100)
-      powers[i] = (powers[i] + 100) * 0.005f; // 0-1
+      powers[i] = (powers[i] + 100) * 0.005; // 0-1
     }
     return powers;
   }
@@ -1018,7 +1025,7 @@ public class FFT {
   }
 
   /*
-     * All of the code below this line is taken from Holger Crysandt's MPEG7AudioEnc project.
+   * All of the code below this line is taken from Holger Crysandt's MPEG7AudioEnc project.
    * See http://mpeg7audioenc.sourceforge.net/copyright.html for license and copyright.
    */
 
@@ -1073,7 +1080,8 @@ public class FFT {
     if (isign) {
       c2 = -.5f;
       four1(data, n>>1, true);
-    } else {
+    } 
+    else {
       c2 = .5f;
       theta = -theta;
     }
@@ -1083,7 +1091,7 @@ public class FFT {
     wr = 1. + wpr;
     wi = wpi;
     int np3 = n + 3;
-    for (int i=2, imax = n >> 2, i1, i2, i3, i4; i <= imax; ++i) {
+    for (int i=2,imax = n >> 2, i1, i2, i3, i4; i <= imax; ++i) {
       /** @TODO this can be optimized */
       i4 = 1 + (i3 = np3 - (i2 = 1 + (i1 = i + i - 1)));
       --i4; 
@@ -1105,7 +1113,8 @@ public class FFT {
       float tmp = data[0]; 
       data[0] += data[1];
       data[1] = tmp - data[1];
-    } else {
+    } 
+    else {
       float tmp = data[0];
       data[0] = c1 * (tmp + data[1]);
       data[1] = c1 * (tmp - data[1]);

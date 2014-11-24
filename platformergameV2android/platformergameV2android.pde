@@ -16,11 +16,11 @@ float posx, posy;
 //size of player
 int spriteheight;
 
-coin [] coinCollection = new  coin[100];
+coin [] coinCollection = new  coin[50];
 float coinX = 100;
 float coinY = 100;
 
-eni [] enemyCollection = new  eni[50];
+eni [] enemyCollection = new  eni[25];
 
 boolean paused = false;
 
@@ -63,7 +63,7 @@ float creditpos = 1;
 int score = 0;
 
 //speed of the background movement and player running
-float scrollspeed = 5;
+float scrollspeed = 15;
 
 boolean gameover = false;
 
@@ -72,7 +72,7 @@ void setup()
   //size of the windiw
   size(displayWidth, displayHeight);
 
-  frameRate (30);
+  frameRate (60);
   background(0);
 
   BG1 =loadImage("BG_01.png");
@@ -102,7 +102,7 @@ void setup()
   noStroke();
 
   image (unitychanlicense, width*0.5, height*0.5);
-  silkscreen = loadFont ("Silkscreen-Bold-30.vlw");
+  silkscreen = createFont("slkscrb.ttf", 30,true);
   textFont (silkscreen, 30);
   textAlign (CENTER, CENTER);
 
@@ -146,6 +146,8 @@ void draw()
   }
   pausebutton();
   gameoverscreen();
+  fill(255);
+  text(frameRate,100-transl8,100);
 }
 
 //score system

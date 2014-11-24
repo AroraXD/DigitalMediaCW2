@@ -21,9 +21,9 @@ class Sprite
   PImage jumpdown2;
 
   float speed = scrollspeed;
-  int maxjumpower = 55;
+  int maxjumpower = 165;
   float jumpower = 0;
-  float gravity = 2;
+  float gravity = 6;
   float speedy = 0;
   boolean falling = false, jumping = false;
 
@@ -326,13 +326,13 @@ void keyPressed()
       state = 2;
       if (mousePressed == true) 
       {
-        if (jumpower < 55)
-          jumpower+= 4;
+        if (jumpower < maxjumpower)
+          jumpower+= 12;
       } else 
-        if (!mousePressed && jumpower > 5)
+        if (!mousePressed && jumpower > 0)
       {
         state = 4;
-        jumpower -= 2;
+        jumpower -= 6;
       }
     }
   }
