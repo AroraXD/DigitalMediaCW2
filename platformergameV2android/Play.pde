@@ -7,7 +7,7 @@ void play()
   //background
   image (BG1, (width*0.5)-transl8, height*0.5);
 
-  for (int j = -6; j < 6* (posx/width); j++)
+  for (int j = -3; j < 3* (posx/width); j++)
     image (BG2, BG2.width*j+width, height-(BG2.height*0.5));
 
   transl8 -=scrollspeed;
@@ -18,4 +18,3 @@ void play()
   for (int c =0; c < enemyCollection.length; c++)
     enemyCollection[c].run();
 }
-

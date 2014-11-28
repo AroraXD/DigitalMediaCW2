@@ -3,6 +3,7 @@
 Maxim maxim;
 AudioPlayer startmusic;
 AudioPlayer stagemusic;
+AudioPlayer gameovermusic;
 AudioPlayer voiceStart;
 AudioPlayer voice321;
 AudioPlayer voiceBooom;
@@ -95,6 +96,7 @@ void setup()
 
   startmusic = maxim.loadFile("title.wav");
   stagemusic = maxim.loadFile("stage.wav");
+  gameovermusic = maxim.loadFile("start.wav")
   coinget = maxim.loadFile("coinget.wav");
   coinget.setLooping(false);
   imageMode(CENTER);
@@ -102,7 +104,7 @@ void setup()
   noStroke();
 
   image (unitychanlicense, width*0.5, height*0.5);
-  silkscreen = createFont("slkscrb.ttf", 30,true);
+  silkscreen = createFont("slkscrb.ttf", 30, true);
   textFont (silkscreen, 30);
   textAlign (CENTER, CENTER);
 
@@ -147,7 +149,7 @@ void draw()
   pausebutton();
   gameoverscreen();
   fill(255);
-  text(frameRate,100-transl8,100);
+  text(frameRate, 100-transl8, 100);
 }
 
 //score system
@@ -219,4 +221,3 @@ void pause()
     text ("reset", width*0.5-transl8, height*0.55);
   }
 }
-

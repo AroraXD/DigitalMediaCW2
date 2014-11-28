@@ -4,7 +4,8 @@ void gameoverscreen()
   {
     stagemusic.stop();
     startmusic.stop();
-
+    gameovermusic.play():
+    
     //fading background
     fill(0, 1.5);
     rect(0-transl8, 0, width, height);
@@ -16,17 +17,19 @@ void gameoverscreen()
     //retry button
     rect ((width*0.5)-(width*0.3*0.5)-transl8, height*0.35, width*0.3, height*0.1);
     fill(0);
-    text ("TRY AGAIN?", width*0.5-transl8, height*0.4);
+    text ("RETRY", width*0.5-transl8, height*0.4);
 
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.35 && mouseY < height*0.45)
       if (mousePressed)
       {
+        //resets game
         gameover = false;
         paused = false;
         start = false;
         transl8= 0;
         chan = new Sprite(width*0.3, 200);
         score = 0;
+        gameovermusic.stop();
         
         for (int h = 0; h <coinCollection.length; h++)
     coinCollection[h] = new coin (random(width, width*10), random(height-BG2.height, ground));
