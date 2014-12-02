@@ -293,32 +293,6 @@ class Sprite
       posx = width-transl8;
   }
 
-  /*
-void keyPressed()
-   {
-   if (key == 'd' || keyCode == RIGHT)
-   if (keyPressed == true) 
-   state = 2;
-   else
-   state = 1;
-   
-   if (key == 'a' || keyCode == LEFT)
-   if (keyPressed == true) 
-   state = 3;
-   
-   if (key == ' ' ||key == 'w' ||keyCode == UP)
-   if (keyPressed == true) 
-   state = 4;
-   
-   if (key == '1')
-   {paused = !paused;}
-   } 
-   
-   void keyReleased() {
-   state = 1;
-   }
-   */
-
   void touchcontrols()
   {
     if (start)
@@ -336,5 +310,10 @@ void keyPressed()
       }
     }
   }
+
+  /*  void jumpbar()
+   {
+   rect(5,5,5,5);
+   }  */
 }
 

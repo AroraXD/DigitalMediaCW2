@@ -15,7 +15,7 @@ void startmenu()
 
 
   //logo
-  image (unitychanlogo, width*0.5, height*0.18);
+  image (logo, width*0.5, height*0.18);
 
   fill (200, 70, 90);
   rect ((width*0.5)-(width*0.3*0.5), height*0.35, width*0.3, height*0.1);

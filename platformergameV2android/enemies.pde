@@ -22,8 +22,11 @@ class eni
 
   void run()
   {
-    breath();
-    playercheck();
+    if (posx > eniX - width && posx < eniX + width)
+    {
+      breath();
+      playercheck();
+    }
   }
 
   void breath()
@@ -36,7 +39,7 @@ class eni
 
   void playercheck()
   {
-    if (posx < eniX + enemyimg[0].width && posx +12  > eniX && posy - 20 < eniY+enemyimg[0].height && posy > eniY)
+    if (posx < eniX + enemyimg[0].width && posx +12  > eniX && posy < eniY+enemyimg[0].height && posy +20 > eniY)
     {
       gameover = true;
       voiceBooom.play();

@@ -23,10 +23,13 @@ class coin
   }
   void run()
   {
-    if (!coindestroyed)
+    if (posx > coinx - width && posx < coinx + width)
     {
-      spin();
-      playercheck();
+      if (!coindestroyed)
+      {
+        spin();
+        playercheck();
+      }
     }
   }
 
@@ -42,9 +45,8 @@ class coin
   //checks if the player position is the same as the coin
   void playercheck()
   {
-    if (posx < coinx + coinimg[0].width && posx +12  > coinx && posy - 20 < coiny+coinimg[0].height && posy > coiny)
+    if (posx < coinx + coinimg[0].width && posx +12  > coinx && posy < coiny+coinimg[0].height && posy +20> coiny)
     {
-
       score+= 10;
       coinget.play();
       coindestroyed = true;

@@ -8,6 +8,7 @@ AudioPlayer voiceStart;
 AudioPlayer voice321;
 AudioPlayer voiceBooom;
 AudioPlayer coinget;
+
 //calls the class Sprit
 Sprite chan;
 
@@ -16,6 +17,7 @@ float posx, posy;
 
 //size of player
 int spriteheight;
+int spritewidth;
 
 coin [] coinCollection = new  coin[50];
 float coinX = 100;
@@ -39,7 +41,7 @@ boolean settingscroll = false;
 boolean creditscroll = false;
 boolean startmenuscroll = false;
 
-PImage unitychanlogo;
+PImage logo;
 PImage unitychanlicense;
 PFont silkscreen;
 
@@ -62,6 +64,7 @@ float creditpos = 1;
 
 //game score
 int score = 0;
+int highscore = 0;
 
 //speed of the background movement and player running
 float scrollspeed = 15;
@@ -83,7 +86,8 @@ void setup()
   BG2.resize(0, height);
 
 
-  unitychanlogo = loadImage ("UnityChan_logo.png");
+  logo = loadImage ("Sand Runner.png");
+  logo.resize(width/2,0);
   unitychanlicense = loadImage ("Dark_Silhouette.png");
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
@@ -96,7 +100,7 @@ void setup()
 
   startmusic = maxim.loadFile("title.wav");
   stagemusic = maxim.loadFile("stage.wav");
-  gameovermusic = maxim.loadFile("start.wav")
+  gameovermusic = maxim.loadFile("start.wav");
   coinget = maxim.loadFile("coinget.wav");
   coinget.setLooping(false);
   imageMode(CENTER);
@@ -110,6 +114,7 @@ void setup()
 
   //sets size of the player
   spriteheight = (width+height)/20;
+  spritewidth =  1540/spriteheight;
 
   //creates the sprite
   chan = new Sprite(width*0.3, height*0.5);
@@ -158,6 +163,9 @@ void score()
 
   fill(200, 70, 90);
   text ("score:"+score, (width*0.1)-transl8, 0+(height*0.1));
+  
+  if(highscore > 0)
+  text("highscore "+ highscore, (width*0.1)-transl8, 0+(height*0.2));
 }
 
 void pausebutton()

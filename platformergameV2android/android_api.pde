@@ -19,8 +19,8 @@ The MIT License (MIT)
 // putting this up in global scope for consistency with maxim.js
 // eventually, this should be inside Maxim in all versions of the library...
 float[] mtof = {
-    0f, 8.661957f, 9.177024f, 9.722718f, 10.3f, 10.913383f, 11.562325f, 12.25f, 12.978271f, 13.75f, 14.567617f, 15.433853f, 16.351599f, 17.323914f, 18.354048f, 19.445436f, 20.601723f, 21.826765f, 23.124651f, 24.5f, 25.956543f, 27.5f, 29.135235f, 30.867706f, 32.703197f, 34.647827f, 36.708096f, 38.890873f, 41.203445f, 43.65353f, 46.249302f, 49.f, 51.913086f, 55.f, 58.27047f, 61.735413f, 65.406395f, 69.295654f, 73.416191f, 77.781746f, 82.406891f, 87.30706f, 92.498604f, 97.998856f, 103.826172f, 110.f, 116.540939f, 123.470825f, 130.81279f, 138.591309f, 146.832382f, 155.563492f, 164.813782f, 174.61412f, 184.997208f, 195.997711f, 207.652344f, 220.f, 233.081879f, 246.94165f, 261.62558f, 277.182617f, 293.664764f, 311.126984f, 329.627563f, 349.228241f, 369.994415f, 391.995422f, 415.304688f, 440.f, 466.163757f, 493.883301f, 523.25116f, 554.365234f, 587.329529f, 622.253967f, 659.255127f, 698.456482f, 739.988831f, 783.990845f, 830.609375f, 880.f, 932.327515f, 987.766602f, 1046.502319f, 1108.730469f, 1174.659058f, 1244.507935f, 1318.510254f, 1396.912964f, 1479.977661f, 1567.981689f, 1661.21875f, 1760.f, 1864.655029f, 1975.533203f, 2093.004639f, 2217.460938f, 2349.318115f, 2489.015869f, 2637.020508f, 2793.825928f, 2959.955322f, 3135.963379f, 3322.4375f, 3520.f, 3729.31f, 3951.066406f, 4186.009277f, 4434.921875f, 4698.63623f, 4978.031738f, 5274.041016f, 5587.651855f, 5919.910645f, 6271.926758f, 6644.875f, 7040.f, 7458.620117f, 7902.132812f, 8372.018555f, 8869.84375f, 9397.272461f, 9956.063477f, 10548.082031f, 11175.303711f, 11839.821289f, 12543.853516f, 13289.75f
-  };
+  0f, 8.661957f, 9.177024f, 9.722718f, 10.3f, 10.913383f, 11.562325f, 12.25f, 12.978271f, 13.75f, 14.567617f, 15.433853f, 16.351599f, 17.323914f, 18.354048f, 19.445436f, 20.601723f, 21.826765f, 23.124651f, 24.5f, 25.956543f, 27.5f, 29.135235f, 30.867706f, 32.703197f, 34.647827f, 36.708096f, 38.890873f, 41.203445f, 43.65353f, 46.249302f, 49.f, 51.913086f, 55.f, 58.27047f, 61.735413f, 65.406395f, 69.295654f, 73.416191f, 77.781746f, 82.406891f, 87.30706f, 92.498604f, 97.998856f, 103.826172f, 110.f, 116.540939f, 123.470825f, 130.81279f, 138.591309f, 146.832382f, 155.563492f, 164.813782f, 174.61412f, 184.997208f, 195.997711f, 207.652344f, 220.f, 233.081879f, 246.94165f, 261.62558f, 277.182617f, 293.664764f, 311.126984f, 329.627563f, 349.228241f, 369.994415f, 391.995422f, 415.304688f, 440.f, 466.163757f, 493.883301f, 523.25116f, 554.365234f, 587.329529f, 622.253967f, 659.255127f, 698.456482f, 739.988831f, 783.990845f, 830.609375f, 880.f, 932.327515f, 987.766602f, 1046.502319f, 1108.730469f, 1174.659058f, 1244.507935f, 1318.510254f, 1396.912964f, 1479.977661f, 1567.981689f, 1661.21875f, 1760.f, 1864.655029f, 1975.533203f, 2093.004639f, 2217.460938f, 2349.318115f, 2489.015869f, 2637.020508f, 2793.825928f, 2959.955322f, 3135.963379f, 3322.4375f, 3520.f, 3729.31f, 3951.066406f, 4186.009277f, 4434.921875f, 4698.63623f, 4978.031738f, 5274.041016f, 5587.651855f, 5919.910645f, 6271.926758f, 6644.875f, 7040.f, 7458.620117f, 7902.132812f, 8372.018555f, 8869.84375f, 9397.272461f, 9956.063477f, 10548.082031f, 11175.303711f, 11839.821289f, 12543.853516f, 13289.75f
+};
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -232,13 +232,12 @@ public class AudioPlayer implements Synth, AudioGenerator {
     if (analysing) {
       // calc the average
       float sum = 0;
-      for (int i=0;i<powerSpectrum.length;i++) {
+      for (int i=0; i<powerSpectrum.length; i++) {
         sum += powerSpectrum[i];
       }
       sum /= powerSpectrum.length;
       return sum;
-    }
-    else {
+    } else {
       System.out.println("call setAnalysing to enable power analysis");
       return 0;
     }
@@ -246,8 +245,7 @@ public class AudioPlayer implements Synth, AudioGenerator {
   public float[] getPowerSpectrum() {
     if (analysing) {
       return powerSpectrum;
-    }
-    else {
+    } else {
       System.out.println("call setAnalysing to enable power analysis");
       return null;
     }
@@ -349,16 +347,14 @@ public class AudioPlayer implements Synth, AudioGenerator {
   public short getSample() {
     if (!isPlaying) {
       return 0;
-    }
-    else {
+    } else {
       short sample;
       readHead += dReadHead;
       if (readHead > (audioData.length - 1)) {// got to the end
         //% (float)audioData.length;
         if (isLooping) {// back to the start for loop mode
           readHead = readHead % (float)audioData.length;
-        }
-        else {
+        } else {
           readHead = 0;
           isPlaying = false;
         }
@@ -469,11 +465,11 @@ public class WavetableSynth extends AudioPlayer {
   }
 
   /** for consistency with maxim.js */
-  public void waveTableSize(int size){
+  public void waveTableSize(int size) {
   }
-  
+
   /** alias to loadWaveForm for consistency with maxim.js*/
-  public void loadWaveTable(float[] wavetable_){
+  public void loadWaveTable(float[] wavetable_) {
     loadWaveForm(wavetable_);
   }
 
@@ -482,7 +478,7 @@ public class WavetableSynth extends AudioPlayer {
       // only reallocate if there is a change in length
       wavetable = new short[wavetable_.length];
     }
-    for (int i=0;i<wavetable.length;i++) {
+    for (int i=0; i<wavetable.length; i++) {
       wavetable[i] = (short) (wavetable_[i] * 32768);
     }
     setAudioData(wavetable);
@@ -553,7 +549,7 @@ public class AndroidAudioThread extends Thread
     if (fftFrame == null) {
       fftFrame = new float[bufferS.length];
     }
-    for (int i=0;i<fftFrame.length;i++) {
+    for (int i=0; i<fftFrame.length; i++) {
       fftFrame[i] = ((float) bufferS[i] / 32768f);
     }
     return fft.process(fftFrame, true);
@@ -565,12 +561,12 @@ public class AndroidAudioThread extends Thread
     running = true;
     while (running) {
       //System.out.println("AudioThread : ags  "+audioGens.size());
-      for (int i=0;i<bufferS.length;i++) {
+      for (int i=0; i<bufferS.length; i++) {
         // we add up using a 32bit int
         // to prevent clipping
         int val = 0;
         if (audioGens.size() > 0) {
-          for (int j=0;j<audioGens.size(); j++) {
+          for (int j=0; j<audioGens.size (); j++) {
             AudioGenerator ag = (AudioGenerator)audioGens.get(j);
             val += ag.getSample();
           }
@@ -625,8 +621,7 @@ public class FXChain {
     dAmp = (targetAmp - currentAmp) / (timeMs / 1000 * sampleRate);
     if (targetAmp > currentAmp) {
       goingUp = true;
-    }
-    else {
+    } else {
       goingUp = false;
     }
   }
@@ -649,8 +644,7 @@ public class FXChain {
     in =  filter.applyFilter(in);
     if (goingUp && currentAmp < targetAmp) {
       currentAmp += dAmp;
-    }
-    else if (!goingUp && currentAmp > targetAmp) {
+    } else if (!goingUp && currentAmp > targetAmp) {
       currentAmp += dAmp;
     }  
 
@@ -741,7 +735,7 @@ public class AudioStreamPlayer {
     // calculate the spectrum
     viz.getFft(fftBuffer);
     short real, imag;
-    for (int i=2;i<fftBuffer.length;i+=2) {
+    for (int i=2; i<fftBuffer.length; i+=2) {
       real = (short) fftBuffer[i];
       imag = (short) fftBuffer[i+1];
       powerSpectrum[i/2] = (byte) ((real * real)  + (imag * imag));
@@ -847,7 +841,7 @@ public class RLPF implements Filter {
     f = map(f, 0, sampleRate/4, 30, sampleRate / 4);
     r = map(r, 0, 1, 0.005, 2);
 
-   // println("rlpf: f "+f+" r "+r);
+    // println("rlpf: f "+f+" r "+r);
 
     this.freq = f * TWO_PI / sampleRate;
     this.reson = r;
@@ -974,7 +968,7 @@ public class FFT {
   public float[] specToPowers(float[] real, float[] imag, float[] powers) {
     float re, im;
     double pow;
-    for (int i=0;i<powers.length;i++) {
+    for (int i=0; i<powers.length; i++) {
       //real = spectrum[i][j].re();
       //imag = spectrum[i][j].im();
       re = real[i];
@@ -1080,8 +1074,7 @@ public class FFT {
     if (isign) {
       c2 = -.5f;
       four1(data, n>>1, true);
-    } 
-    else {
+    } else {
       c2 = .5f;
       theta = -theta;
     }
@@ -1091,7 +1084,7 @@ public class FFT {
     wr = 1. + wpr;
     wi = wpi;
     int np3 = n + 3;
-    for (int i=2,imax = n >> 2, i1, i2, i3, i4; i <= imax; ++i) {
+    for (int i=2, imax = n >> 2, i1, i2, i3, i4; i <= imax; ++i) {
       /** @TODO this can be optimized */
       i4 = 1 + (i3 = np3 - (i2 = 1 + (i1 = i + i - 1)));
       --i4; 
@@ -1113,8 +1106,7 @@ public class FFT {
       float tmp = data[0]; 
       data[0] += data[1];
       data[1] = tmp - data[1];
-    } 
-    else {
+    } else {
       float tmp = data[0];
       data[0] = c1 * (tmp + data[1]);
       data[1] = c1 * (tmp - data[1]);
