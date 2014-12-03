@@ -21,7 +21,7 @@ class Sprite
   PImage jumpdown2;
 
   float speed = scrollspeed;
-  int maxjumpower = 165;
+  int maxjumpower = 130;
   float jumpower = 0;
   float gravity = 6;
   float speedy = 0;
@@ -90,6 +90,8 @@ class Sprite
     onscreen();
 
     grav(); 
+
+    jumpbar();
 
     if (start || startmenuscroll)
     {
@@ -301,19 +303,34 @@ class Sprite
       if (mousePressed == true) 
       {
         if (jumpower < maxjumpower)
-          jumpower+= 12;
+        {
+          jumpower+= 10;
+          if (jumpower >maxjumpower) 
+          {
+            jumpower=maxjumpower;
+          }
+        }
       } else 
         if (!mousePressed && jumpower > 0)
       {
         state = 4;
         jumpower -= 6;
+        if (jumpower < 0)
+        jumpower = 0;
       }
     }
   }
 
-  /*  void jumpbar()
-   {
-   rect(5,5,5,5);
-   }  */
+  void jumpbar()
+  {
+    fill(0);
+    rect(width*0.1-transl8, height*0.85, width*0.8, height*0.1);
+    fill (200, 70, 90);
+    rect(width*0.11-transl8, height*0.86, (width*0.78)*jumpower/maxjumpower, height*0.08);
+    fill(50);
+    textSize(height*0.05);
+    text("JUMP POWER", width*0.5-transl8, height*0.9);
+    textSize(50);
+  }
 }
 

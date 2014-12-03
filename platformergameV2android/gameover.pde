@@ -36,10 +36,10 @@ void gameoverscreen()
         gameovermusic.stop();
 
         for (int h = 0; h <coinCollection.length; h++)
-          coinCollection[h] = new coin (random(width, width*10), random(height-BG2.height, ground));
+          coinCollection[h] = new coin (random(width, width*100), random(height-BG2.height, ground));
 
         for (int m = 0; m <enemyCollection.length; m++)
-          enemyCollection[m] = new eni (random(width, width*10), random(height-BG2.height, ground));
+          enemyCollection[m] = new eni (random(width, width*100), random(height-BG2.height, ground));
       }
   }
 }

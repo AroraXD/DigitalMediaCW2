@@ -19,11 +19,11 @@ float posx, posy;
 int spriteheight;
 int spritewidth;
 
-coin [] coinCollection = new  coin[50];
+coin [] coinCollection = new  coin[500];
 float coinX = 100;
 float coinY = 100;
 
-eni [] enemyCollection = new  eni[25];
+eni [] enemyCollection = new  eni[250];
 
 boolean paused = false;
 
@@ -87,7 +87,7 @@ void setup()
 
 
   logo = loadImage ("Sand Runner.png");
-  logo.resize(width/2,0);
+  logo.resize(width, 0);
   unitychanlicense = loadImage ("Dark_Silhouette.png");
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
@@ -109,7 +109,7 @@ void setup()
 
   image (unitychanlicense, width*0.5, height*0.5);
   silkscreen = createFont("slkscrb.ttf", 30, true);
-  textFont (silkscreen, 30);
+  textFont (silkscreen, 50);
   textAlign (CENTER, CENTER);
 
   //sets size of the player
@@ -122,10 +122,10 @@ void setup()
   ground = (height*8)/10;
 
   for (int h = 0; h <coinCollection.length; h++)
-    coinCollection[h] = new coin (random(width, width*10), random(height-BG2.height, ground));
+    coinCollection[h] = new coin (random(width, width*100), random(height-BG2.height, ground));
 
   for (int m = 0; m <enemyCollection.length; m++)
-    enemyCollection[m] = new eni (random(width, width*10), random(height-BG2.height, ground));
+    enemyCollection[m] = new eni (random(width, width*100), random(height-BG2.height, ground));
 }
 
 void draw()
@@ -160,12 +160,14 @@ void draw()
 //score system
 void score()
 {
-
+  textAlign(LEFT);
   fill(200, 70, 90);
   text ("score:"+score, (width*0.1)-transl8, 0+(height*0.1));
-  
-  if(highscore > 0)
-  text("highscore "+ highscore, (width*0.1)-transl8, 0+(height*0.2));
+
+  if (highscore > 0)
+    text("highscore "+ highscore, (width*0.1)-transl8, 0+(height*0.15));
+
+  textAlign (CENTER, CENTER);
 }
 
 void pausebutton()
@@ -173,7 +175,10 @@ void pausebutton()
   if (start && !gameover)
   { 
     fill (200, 70, 90);
-    rect(width*0.85-transl8, height*0.05, width*0.1, height*0.1);
+    rect(width*0.75-transl8, height*0.05, width*0.2, height*0.08);
+    fill(0);
+    text("pause",width*0.85-transl8,height*0.09);
+    //note; pause button is not a button yet
   }
 }
 
@@ -229,3 +234,4 @@ void pause()
     text ("reset", width*0.5-transl8, height*0.55);
   }
 }
+
