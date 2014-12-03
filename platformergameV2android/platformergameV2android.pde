@@ -93,7 +93,7 @@ void setup()
 
 
   logo = loadImage ("Sand Runner.png");
-  logo.resize(0, height/3);
+  logo.resize(0, height/4);
   
   unitychanlicense = loadImage ("Dark_Silhouette.png");
   maxim = new Maxim(this);

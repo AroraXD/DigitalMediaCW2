@@ -59,11 +59,15 @@ void gamecontrols()
     rect ((width*0.1)-width, (height*0.1), width*0.8, height*0.65);
     fill(0);
     text("game controls", width*0.5-width, height*0.15);
-    text("Tap screen to jump", width*0.5-width, height*0.3);
+    textSize(30);
+    text("Hold down to fill jump bar", width*0.5-width, height*0.2);
+    text("release to jump", width*0.5-width, height*0.3);
     text("press pause to pause the game", width*0.5-width, height*0.4);
     text("collect coins to increase your score", width*0.5-width, height*0.5);
-    text("avoid enemies", width*0.5-width, height*0.6);
+    text("avoid the pink enemies", width*0.5-width, height*0.6);
     text("gl hf", width*0.5-width, height*0.7);
+    textSize(50);
+
     if (mousePressed)
       gamecontrol = false;
   }
