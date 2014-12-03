@@ -2,10 +2,13 @@ void gameoverscreen()
 {
   if (gameover)
   {
-    stagemusic.stop();
-    startmusic.stop();
-    gameovermusic.play();
-
+    if (music)
+    {
+      stagemusic.stop();
+      startmusic.stop();
+      gameovermusic.play();
+    }
+    
     if (score > highscore)
       highscore= score;
 
@@ -26,21 +29,26 @@ void gameoverscreen()
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.65 && mouseY < height*0.75)
       if (mousePressed)
       {
-        //resets game
-        gameover = false;
-        paused = false;
-        start = false;
-        transl8= 0;
-        chan = new Sprite(width*0.3, 200);
-        score = 0;
-        gameovermusic.stop();
-
-        for (int h = 0; h <coinCollection.length; h++)
-          coinCollection[h] = new coin (random(width, width*100), random(height-BG2.height, ground));
-
-        for (int m = 0; m <enemyCollection.length; m++)
-          enemyCollection[m] = new eni (random(width, width*100), random(height-BG2.height, ground));
+        reset();
       }
   }
+}
+
+//resets game
+void reset()
+{
+  gameover = false;
+  paused = false;
+  start = false;
+  transl8= 0;
+  chan = new Sprite(width*0.3, 200);
+  score = 0;
+  gameovermusic.stop();
+
+  for (int h = 0; h <coinCollection.length; h++)
+    coinCollection[h] = new coin (random(width, width*100), random(height-BG2.height, ground));
+
+  for (int m = 0; m <enemyCollection.length; m++)
+    enemyCollection[m] = new eni (random(width, width*100), random(height-BG2.height, ground));
 }
 

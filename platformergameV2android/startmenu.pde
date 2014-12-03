@@ -43,6 +43,9 @@ void startmenubuttons()
       {
         start = true;
         voiceStart.play();
+        settingscroll = false;
+        creditscroll = false;
+        startmenuscroll = false;
       }
     }
 
@@ -50,6 +53,7 @@ void startmenubuttons()
     if (mousePressed)
     {
       {
+        button.play();
         settingscroll = true;
         creditscroll = false;
         startmenuscroll = false;
@@ -60,6 +64,7 @@ void startmenubuttons()
     if (mousePressed)
     {
       {
+        button.play();
         creditscroll = true;
         settingscroll = false;
         startmenuscroll = false;

@@ -7,7 +7,10 @@ AudioPlayer gameovermusic;
 AudioPlayer voiceStart;
 AudioPlayer voice321;
 AudioPlayer voiceBooom;
+AudioPlayer voicegameover1;
+AudioPlayer voicegameover2;
 AudioPlayer coinget;
+AudioPlayer button;
 
 //calls the class Sprit
 Sprite chan;
@@ -52,6 +55,9 @@ PImage BG2;
 //see sprite tab for more details
 int state =1;
 
+//picks which gameover voice will play
+int gameoverV = 0;
+
 //sets ground level. the player can only jump when on the ground
 int ground;
 
@@ -87,7 +93,8 @@ void setup()
 
 
   logo = loadImage ("Sand Runner.png");
-  logo.resize(width, 0);
+  logo.resize(0, height/3);
+  
   unitychanlicense = loadImage ("Dark_Silhouette.png");
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
@@ -96,7 +103,15 @@ void setup()
   voice321.setLooping(false);
   voiceBooom = maxim.loadFile("uni15001.wav");
   voiceBooom.setLooping(false);
+  voicegameover1 = maxim.loadFile("univ0010.wav");
+  voicegameover1.setLooping(false);
+  voicegameover2 = maxim.loadFile("univ1091.wav");
+  voicegameover2.setLooping(false);
 
+
+  button =maxim.loadFile("button press.wav");
+  button.setLooping(false);
+  button.volume(2);
 
   startmusic = maxim.loadFile("title.wav");
   stagemusic = maxim.loadFile("stage.wav");

@@ -21,7 +21,7 @@ class Sprite
   PImage jumpdown2;
 
   float speed = scrollspeed;
-  int maxjumpower = 130;
+  int maxjumpower = 150;
   float jumpower = 0;
   float gravity = 6;
   float speedy = 0;
@@ -32,17 +32,20 @@ class Sprite
   int r = 1;
   int jumpup = 1;
   int down = 1;
+  int jumpvoice = 0;
 
   AudioPlayer voiceJump;
+  AudioPlayer voiceJump2;
 
 
   Sprite(float startX, float startY)
   {
 
     voiceJump = maxim.loadFile("uni14951.wav");
-
     voiceJump.setLooping(false);
-
+    voiceJump2 = maxim.loadFile("univ0001.wav");
+    voiceJump2.setLooping(false);
+   
     posx = startX;
     posy= startY;
     stand1 = loadImage ("UnityChan_footwprk_0.png");
@@ -164,7 +167,16 @@ class Sprite
     if (falling == false)
     {
       jumpinganimation();
-      voiceJump.play();
+
+      if (!voiceJump.isPlaying() && !voiceJump.isPlaying() && !voiceJump.isPlaying())
+      {
+        jumpvoice = int(random(2));
+        if (jumpvoice == 0)
+          voiceJump2.play();
+        if (jumpvoice == 1)
+          voiceJump.play();
+    
+      }
     }
   }
 
@@ -293,6 +305,15 @@ class Sprite
 
     if (posx >width-transl8)
       posx = width-transl8;
+
+    if (posy < 0)
+    {
+      posy = 0;
+      speedy=0;
+    }
+
+    if (posy + (stand1.height)/2 > ground)
+      posy =ground - (stand1.height)/2;
   }
 
   void touchcontrols()
@@ -316,21 +337,24 @@ class Sprite
         state = 4;
         jumpower -= 6;
         if (jumpower < 0)
-        jumpower = 0;
+          jumpower = 0;
       }
     }
   }
 
   void jumpbar()
   {
-    fill(0);
-    rect(width*0.1-transl8, height*0.85, width*0.8, height*0.1);
-    fill (200, 70, 90);
-    rect(width*0.11-transl8, height*0.86, (width*0.78)*jumpower/maxjumpower, height*0.08);
-    fill(50);
-    textSize(height*0.05);
-    text("JUMP POWER", width*0.5-transl8, height*0.9);
-    textSize(50);
+    if (start)
+    {
+      fill(0);
+      rect(width*0.1-transl8, height*0.85, width*0.8, height*0.1);
+      fill (200, 70, 90);
+      rect(width*0.11-transl8, height*0.86, (width*0.78)*jumpower/maxjumpower, height*0.08);
+      fill(50);
+      textSize(height*0.05);
+      text("JUMP POWER", width*0.5-transl8, height*0.9);
+      textSize(50);
+    }
   }
 }
 

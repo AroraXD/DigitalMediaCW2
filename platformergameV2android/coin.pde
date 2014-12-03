@@ -45,7 +45,7 @@ class coin
   //checks if the player position is the same as the coin
   void playercheck()
   {
-    if (posx < coinx + coinimg[0].width && posx +12  > coinx && posy < coiny+coinimg[0].height && posy +20> coiny)
+    if (posx < coinx + coinimg[0].width && posx +chan.jumpup1.width  > coinx && posy < coiny+coinimg[0].height && posy +chan.jumpup1.height> coiny)
     {
       score+= 10;
       coinget.play();

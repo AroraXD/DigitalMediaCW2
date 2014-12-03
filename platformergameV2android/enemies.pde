@@ -39,10 +39,16 @@ class eni
 
   void playercheck()
   {
-    if (posx < eniX + enemyimg[0].width && posx +12  > eniX && posy < eniY+enemyimg[0].height && posy +20 > eniY)
+    if (posx < eniX + enemyimg[0].width && posx +chan.jumpup1.width  > eniX && posy < eniY+enemyimg[0].height && posy +chan.jumpup1.height > eniY)
     {
       gameover = true;
-      voiceBooom.play();
+      gameoverV = int(random(3));
+      if (gameoverV ==0)
+        voiceBooom.play();
+      if (gameoverV ==1)
+        voicegameover1.play();
+      if (gameoverV ==2)
+        voicegameover2.play();
     }
   }
 }
