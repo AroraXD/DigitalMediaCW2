@@ -126,8 +126,9 @@ public void setup()
 
   logo = loadImage ("Sand Runner.png");
   logo.resize(0, height/4);
-  
+
   unitychanlicense = loadImage ("Dark_Silhouette.png");
+  unitychanlicense.resize(0,height/4);
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
   voiceStart.setLooping(false);
@@ -201,31 +202,38 @@ public void draw()
   pausebutton();
   gameoverscreen();
   fill(255);
-  text(frameRate, 100-transl8, 100);
+  //text(frameRate, 100-transl8, 100);
 }
 
 //score system
 public void score()
 {
-  textAlign(LEFT);
+  textAlign(LEFT,TOP);
   fill(200, 70, 90);
-  text ("score:"+score, (width*0.1f)-transl8, 0+(height*0.1f));
+  text ("score:"+score, (width*0.05f)-transl8, (height*0.05f));
 
+  textAlign(LEFT,BOTTOM);
   if (highscore > 0)
-    text("highscore "+ highscore, (width*0.1f)-transl8, 0+(height*0.15f));
+    text("highscore "+ highscore, (width*0.05f)-transl8, (height*0.13f));
 
   textAlign (CENTER, CENTER);
 }
 
 public void pausebutton()
 {
-  if (start && !gameover)
+  if (start && !gameover && !paused)
   { 
     fill (200, 70, 90);
     rect(width*0.75f-transl8, height*0.05f, width*0.2f, height*0.08f);
     fill(0);
-    text("pause",width*0.85f-transl8,height*0.09f);
+    text("pause", width*0.85f-transl8, height*0.09f);
     //note; pause button is not a button yet
+
+    if (mouseX>width*0.75f && mouseX<(width*0.75f)+(width*0.2f) && mouseY > height*0.05f && mouseY < height*0.05f + height*0.08f)
+    {
+      paused=true;
+      button.play();
+    }
   }
 }
 
@@ -236,43 +244,28 @@ public void pause()
   {
 
     //fading background
-    fill(0, 1.5f);
+    fill(100, 0.5f);
     rect(0-transl8, 0, width, height);
-
-    /*
-  loadPixels();
-     for (int t =0; t< pixels.length; t++)
-     {
-     float rand = random(255);
-     color c = pixels[t];
-     c= c+(t/2);
-     pixels[t] = c;
-     }
-     updatePixels(); */
 
     fill (200, 70, 90);
     rect ((width*0.5f)-(width*0.3f*0.5f)-transl8, height*0.35f, width*0.3f, height*0.1f);
     rect ((width*0.5f)-(width*0.3f*0.5f)-transl8, height*0.5f, width*0.3f, height*0.1f);
 
-    fill(100, 35, 45);
     if (mouseX > width*0.35f && mouseX < width*0.65f && mouseY > height*0.35f && mouseY < height*0.45f)
     {
-      rect ((width*0.5f)-(width*0.3f*0.5f)-transl8, height*0.35f, width*0.3f, height*0.1f);
-      if (mousePressed)
-        paused = false;
-    }
-
-    fill(100, 35, 45);
-    if (mouseX > width*0.35f && mouseX < width*0.65f && mouseY > height*0.5f && mouseY < height*0.6f)
-    {
-      rect ((width*0.5f)-(width*0.3f*0.5f)-transl8, height*0.5f, width*0.3f, height*0.1f);
       if (mousePressed)
       {
         paused = false;
-        start = false;
-        transl8= 0;
-        chan = new Sprite(100, 200);
-        score = 0;
+        button.play();
+      }
+    }
+
+    if (mouseX > width*0.35f && mouseX < width*0.65f && mouseY > height*0.5f && mouseY < height*0.6f)
+    {
+      if (mousePressed)
+      {
+        button.play();
+        reset();
       }
     }
 
@@ -306,6 +299,7 @@ public void credits()
     fill(100, 35, 45);
     if (mousePressed)
     {
+      button.play();
       startmenuscroll = true;
       creditscroll = false;
       settingscroll = false;
@@ -359,6 +353,7 @@ public void settings()
     if (mousePressed)
     {
       music = !music;
+      button.play();
     }
 
   if (mouseX-transl8 > width*0.35f-width && mouseX-transl8 < width*0.65f-width && mouseY > height*0.5f && mouseY < height*0.6f)
@@ -371,6 +366,7 @@ public void settings()
     if (mousePressed)
     {
       {
+        button.play();
         creditscroll = false;
         settingscroll = false;
         startmenuscroll = true;
@@ -1712,7 +1708,7 @@ public void gameoverscreen()
       startmusic.stop();
       gameovermusic.play();
     }
-    
+
     if (score > highscore)
       highscore= score;
 
@@ -1733,6 +1729,7 @@ public void gameoverscreen()
     if (mouseX > width*0.35f && mouseX < width*0.65f && mouseY > height*0.65f && mouseY < height*0.75f)
       if (mousePressed)
       {
+        button.play();
         reset();
       }
   }

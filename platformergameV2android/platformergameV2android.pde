@@ -96,6 +96,7 @@ void setup()
   logo.resize(0, height/4);
 
   unitychanlicense = loadImage ("Dark_Silhouette.png");
+  unitychanlicense.resize(0,height/4);
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
   voiceStart.setLooping(false);
@@ -175,12 +176,13 @@ void draw()
 //score system
 void score()
 {
-  textAlign(LEFT);
+  textAlign(LEFT,TOP);
   fill(200, 70, 90);
-  text ("score:"+score, (width*0.1)-transl8, 0+(height*0.1));
+  text ("score:"+score, (width*0.05)-transl8, (height*0.05));
 
+  textAlign(LEFT,BOTTOM);
   if (highscore > 0)
-    text("highscore "+ highscore, (width*0.1)-transl8, 0+(height*0.15));
+    text("highscore "+ highscore, (width*0.05)-transl8, (height*0.13));
 
   textAlign (CENTER, CENTER);
 }
