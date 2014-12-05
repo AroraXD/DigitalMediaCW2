@@ -94,7 +94,7 @@ void setup()
 
   logo = loadImage ("Sand Runner.png");
   logo.resize(0, height/4);
-  
+
   unitychanlicense = loadImage ("Dark_Silhouette.png");
   maxim = new Maxim(this);
   voiceStart = maxim.loadFile("uni14941.wav");
@@ -169,7 +169,7 @@ void draw()
   pausebutton();
   gameoverscreen();
   fill(255);
-  text(frameRate, 100-transl8, 100);
+  //text(frameRate, 100-transl8, 100);
 }
 
 //score system
@@ -187,13 +187,19 @@ void score()
 
 void pausebutton()
 {
-  if (start && !gameover)
+  if (start && !gameover && !paused)
   { 
     fill (200, 70, 90);
     rect(width*0.75-transl8, height*0.05, width*0.2, height*0.08);
     fill(0);
-    text("pause",width*0.85-transl8,height*0.09);
+    text("pause", width*0.85-transl8, height*0.09);
     //note; pause button is not a button yet
+
+    if (mouseX>width*0.75 && mouseX<(width*0.75)+(width*0.2) && mouseY > height*0.05 && mouseY < height*0.05 + height*0.08)
+    {
+      paused=true;
+      button.play();
+    }
   }
 }
 
@@ -204,43 +210,28 @@ void pause()
   {
 
     //fading background
-    fill(0, 1.5);
+    fill(100, 0.5);
     rect(0-transl8, 0, width, height);
-
-    /*
-  loadPixels();
-     for (int t =0; t< pixels.length; t++)
-     {
-     float rand = random(255);
-     color c = pixels[t];
-     c= c+(t/2);
-     pixels[t] = c;
-     }
-     updatePixels(); */
 
     fill (200, 70, 90);
     rect ((width*0.5)-(width*0.3*0.5)-transl8, height*0.35, width*0.3, height*0.1);
     rect ((width*0.5)-(width*0.3*0.5)-transl8, height*0.5, width*0.3, height*0.1);
 
-    fill(100, 35, 45);
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.35 && mouseY < height*0.45)
     {
-      rect ((width*0.5)-(width*0.3*0.5)-transl8, height*0.35, width*0.3, height*0.1);
-      if (mousePressed)
-        paused = false;
-    }
-
-    fill(100, 35, 45);
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.5 && mouseY < height*0.6)
-    {
-      rect ((width*0.5)-(width*0.3*0.5)-transl8, height*0.5, width*0.3, height*0.1);
       if (mousePressed)
       {
         paused = false;
-        start = false;
-        transl8= 0;
-        chan = new Sprite(100, 200);
-        score = 0;
+        button.play();
+      }
+    }
+
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.5 && mouseY < height*0.6)
+    {
+      if (mousePressed)
+      {
+        button.play();
+        reset();
       }
     }
 

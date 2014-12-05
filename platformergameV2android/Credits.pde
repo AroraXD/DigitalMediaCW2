@@ -22,6 +22,7 @@ void credits()
     fill(100, 35, 45);
     if (mousePressed)
     {
+      button.play();
       startmenuscroll = true;
       creditscroll = false;
       settingscroll = false;

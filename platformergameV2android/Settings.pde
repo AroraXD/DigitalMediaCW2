@@ -20,6 +20,7 @@ void settings()
     if (mousePressed)
     {
       music = !music;
+      button.play();
     }
 
   if (mouseX-transl8 > width*0.35-width && mouseX-transl8 < width*0.65-width && mouseY > height*0.5 && mouseY < height*0.6)
@@ -32,6 +33,7 @@ void settings()
     if (mousePressed)
     {
       {
+        button.play();
         creditscroll = false;
         settingscroll = false;
         startmenuscroll = true;

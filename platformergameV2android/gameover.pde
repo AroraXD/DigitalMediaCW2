@@ -8,7 +8,7 @@ void gameoverscreen()
       startmusic.stop();
       gameovermusic.play();
     }
-    
+
     if (score > highscore)
       highscore= score;
 
@@ -29,6 +29,7 @@ void gameoverscreen()
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.65 && mouseY < height*0.75)
       if (mousePressed)
       {
+        button.play();
         reset();
       }
   }
